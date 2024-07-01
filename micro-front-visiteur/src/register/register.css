@@ -1,0 +1,81 @@
+
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1b1b1b;
+    background-image: url('../assets/car.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    
+  }
+  
+  .register-card {
+    width: 370px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    align-content: center;
+  }
+  
+  .register-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(51, 51, 51, 0.5);
+    font-family: 'Roboto', sans-serif;
+   
+  }
+
+  .register-card .form-group {
+    margin-bottom: 15px;
+    margin-right: 8%;
+ 
+  }
+  
+  .register-card input[type='text'],
+  .register-card input[type='email'],
+  .register-card input[type='password'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    font-size: medium;
+    margin-left: 4%;
+   
+    
+  }
+  
+  .register-card button[type='submit'] {
+    width: 80%;
+    padding: 12px;
+    border: none;
+    margin-left: 10%;
+    border-radius: 15px;
+    background-color: #1b1b1b;
+    color: #fff;
+    margin-top: 7px;
+  }
+  
+  .register-card button[type='submit']:hover {
+    background-color: #637396;
+  }
+  
+  .register-card .text-center {
+    margin-top: 10%;
+    text-align: center;
+  }
+  .register-card .text-center1 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    text-align: center;
+  }   
+  
+  .icon{
+    margin-top: -5px;
+    padding: 10px;
+  }
+  

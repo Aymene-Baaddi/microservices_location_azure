@@ -1,0 +1,139 @@
+/* ShowReservation.css */
+.reservation-list-container {
+    margin-top: 10%;
+    margin-left: 10%;
+    max-width: 1200px;
+}
+
+.reservation-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.reservation-table th,
+.reservation-table td {
+    padding: 12px 15px;
+    border: 1px solid #c1c1c1;
+    text-align: left;
+}
+
+.reservation-table th {
+    background-color: #000000;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.reservation-table td {
+    color: rgb(0, 0, 0);
+}
+
+.reservation-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.reservation-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.reservation-table tbody tr td:last-child {
+    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #000000;
+    color: white;
+    padding: 8px 16px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+   
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #000000;
+}
+.status1-en-cours {
+    color: green;
+    font-weight: bold;
+}
+
+.status1-terminee {
+    color: red;
+    font-weight: bold;
+}
+.reservation-table .details-button {
+    background-color: #000000;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reservation-table .details-button:hover {
+    background-color: #0056b3;
+}

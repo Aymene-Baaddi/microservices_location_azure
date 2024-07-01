@@ -1,0 +1,145 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: AYMENEbd10-
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    networks:
+      - microservice-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  micro-back-discovery:
+    image: pfa-micro-back-discovery
+    ports:
+      - "8762:8761"
+    networks:
+      - microservice-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  micro-back-api-gateway:
+    image: pfa-micro-back-api-gateway
+    ports:
+      - "8090:8080"
+    depends_on:
+      - micro-back-discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-back-voiture:
+    image: pfa-micro-back-voiture
+    ports:
+      - "8095:8085"
+    depends_on:
+      - micro-back-discovery
+      - mysql
+      - micro-back-api-gateway
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/voiture
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AYMENEbd10-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-back-user:
+    image: pfa-micro-back-user
+    ports:
+      - "8093:8083"
+    depends_on:
+      - micro-back-discovery
+      - mysql
+      - micro-back-api-gateway
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/user
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AYMENEbd10-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-back-admin:
+    image: pfa-micro-back-admin
+    ports:
+      - "8096:8086"
+    depends_on:
+      - micro-back-discovery
+      - mysql
+      - micro-back-api-gateway
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/admin
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AYMENEbd10-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-back-favori:
+    image: pfa-micro-back-favori
+    ports:
+      - "8091:8081"
+    depends_on:
+      - micro-back-discovery
+      - mysql
+      - micro-back-api-gateway
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/favoris
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AYMENEbd10-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-back-reservation:
+    image: pfa-micro-back-reservation
+    ports:
+      - "8092:8082"
+    depends_on:
+      - micro-back-discovery
+      - mysql
+      - micro-back-api-gateway
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/reservation
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AYMENEbd10-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - microservice-network
+
+  micro-front-admin:
+    image: pfa-micro-front-admin
+    ports:
+      - "3010:3000"
+    networks:
+      - microservice-network
+
+  micro-front-visiteur:
+    image: pfa-micro-front-visiteur
+    ports:
+      - "3011:3001"
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

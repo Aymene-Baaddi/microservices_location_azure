@@ -1,0 +1,58 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    
+    
+}
+.add-car-form {
+    flex: 1;
+    margin-top: 1%;
+    margin-left:22%;
+    max-width: 400px;
+    padding: 20px;
+    margin-right: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-car-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.add-car-form input[type="text"],
+.add-car-form input[type="number"],
+.add-car-form textarea,
+.add-car-form select {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.add-car-form button[type="submit"] {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-car-form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.registration-image {
+    margin-top: 1%;
+    width: 400px;
+    height: 700px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

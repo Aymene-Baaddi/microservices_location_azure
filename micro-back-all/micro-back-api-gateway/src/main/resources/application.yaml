@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: micro-back-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: micro-back-favori-all
+          uri: lb://micro-back-favori
+          predicates:
+            - Path=/api/favori
+        - id: micro-back-favori
+          uri: lb://micro-back-favori
+          predicates:
+            - Path=/api/favori/{id}
+        - id: micro-back-admin
+          uri: lb://micro-back-admin
+          predicates:
+            - Path=/api/admin/**
+            - Method=POST
+        - id: micro-back-user
+          uri: lb://micro-back-user
+          predicates:
+            - Path=/api/user/{id}
+        - id: micro-back-user
+          uri: lb://micro-back-user
+          predicates:
+            - Path=/api/user
+        - id: micro-back-user-post
+          uri: lb://micro-back-user
+          predicates:
+            - Path=/api/user/**
+            - Method=POST
+        - id: micro-back-reservation-all
+          uri: lb://micro-back-reservation
+          predicates:
+            - Path=/api/reservation
+        - id: micro-back-reservation
+          uri: lb://micro-back-reservation
+          predicates:
+            - Path=/api/reservation/{id}
+        - id: micro-back-voiture-all
+          uri: lb://micro-back-voiture
+          predicates:
+            - Path=/api/voiture
+        - id: micro-back-voiture
+          uri: lb://micro-back-voiture
+          predicates:
+            - Path=/api/voiture/{id}
+        - id: micro-back-discovery
+          uri: http://localhost:8761/eureka/
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionLocater: INFO
+    org.springframework.cloud.gateway: TRACE

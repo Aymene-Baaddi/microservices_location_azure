@@ -1,0 +1,68 @@
+.reservation-details-container {
+    padding: 20px;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.print-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.print-button:hover {
+    background-color: #45a049;
+}
+
+.reservation-details {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header, footer {
+    margin-bottom: 20px;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.reservation-info {
+    margin-bottom: 20px;
+}
+
+.reservation-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reservation-info td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.reservation-info strong {
+    font-weight: bold;
+}
+
+.reservation-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius:10px;
+}

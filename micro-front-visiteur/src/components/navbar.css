@@ -1,0 +1,51 @@
+
+
+.navbar {
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar-transparent {
+    background: transparent !important;
+  }
+  
+  .navbar-dark.bg-dark {
+    background-color: #343a40 !important;
+  }
+  .navbar-brand{
+    color: white;
+  }
+  .navbar-brand-custom {
+    margin-left: 20px; 
+    font-size: 24px;   
+  }
+  
+  
+  .navbar-dark.bg-dark{
+    background-color: #000000 !important;
+  }
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+   .nav-link-custom {
+    font-size: 18px; 
+    margin-right: 40px; 
+  }
+  
+  
+  .dropdown-menu {
+    min-width: auto; /* Optional: Adjust to fit content */
+  }
+  
+  .dropdown-item {
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  
+  
+  
