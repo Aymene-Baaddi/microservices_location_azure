@@ -35,7 +35,7 @@ services:
     ports:
       - "8090:8080"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://micro-back-discovery:8761/eureka/
       - SPRING_PROFILES_ACTIVE=docker
@@ -49,9 +49,9 @@ services:
     ports:
       - "8095:8085"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
       - mysql
-      - ./micro-back-all/micro-back-api-gateway
+      - micro-back-api-gateway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/voiture
       - SPRING_DATASOURCE_USERNAME=root
@@ -68,9 +68,9 @@ services:
     ports:
       - "8093:8083"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
       - mysql
-      - ./micro-back-all/micro-back-api-gateway
+      - micro-back-api-gateway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/user
       - SPRING_DATASOURCE_USERNAME=root
@@ -87,9 +87,9 @@ services:
     ports:
       - "8096:8086"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
       - mysql
-      - ./micro-back-all/micro-back-api-gateway
+      - micro-back-api-gateway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/admin
       - SPRING_DATASOURCE_USERNAME=root
@@ -106,9 +106,9 @@ services:
     ports:
       - "8091:8081"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
       - mysql
-      - ./micro-back-all/micro-back-api-gateway
+      - micro-back-api-gateway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/favoris
       - SPRING_DATASOURCE_USERNAME=root
@@ -125,9 +125,9 @@ services:
     ports:
       - "8092:8082"
     depends_on:
-      - ./micro-back-all/micro-back-discovery
+      - micro-back-discovery
       - mysql
-      - ./micro-back-all/micro-back-api-gateway
+      - micro-back-api-gateway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/reservation
       - SPRING_DATASOURCE_USERNAME=root
