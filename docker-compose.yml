@@ -18,7 +18,9 @@ services:
       retries: 5
 
   micro-back-discovery:
-    image: pfa-micro-back-discovery
+    build:
+      context: ./micro-back-all/micro-back-discovery
+      dockerfile: Dockerfile
     ports:
       - "8762:8761"
     networks:
@@ -27,7 +29,9 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
 
   micro-back-api-gateway:
-    image: pfa-micro-back-api-gateway
+    build:
+      context: ./micro-back-all/micro-back-api-gateway
+      dockerfile: Dockerfile
     ports:
       - "8090:8080"
     depends_on:
@@ -39,7 +43,9 @@ services:
       - microservice-network
 
   micro-back-voiture:
-    image: pfa-micro-back-voiture
+    build:
+      context: ./micro-back-all/micro-back-voiture
+      dockerfile: Dockerfile
     ports:
       - "8095:8085"
     depends_on:
@@ -56,7 +62,9 @@ services:
       - microservice-network
 
   micro-back-user:
-    image: pfa-micro-back-user
+    build:
+      context: ./micro-back-all/micro-back-user
+      dockerfile: Dockerfile
     ports:
       - "8093:8083"
     depends_on:
@@ -73,7 +81,9 @@ services:
       - microservice-network
 
   micro-back-admin:
-    image: pfa-micro-back-admin
+    build:
+      context: ./micro-back-all/micro-back-admin
+      dockerfile: Dockerfile
     ports:
       - "8096:8086"
     depends_on:
@@ -90,7 +100,9 @@ services:
       - microservice-network
 
   micro-back-favori:
-    image: pfa-micro-back-favori
+    build:
+      context: ./micro-back-all/micro-back-favori
+      dockerfile: Dockerfile
     ports:
       - "8091:8081"
     depends_on:
@@ -107,7 +119,9 @@ services:
       - microservice-network
 
   micro-back-reservation:
-    image: pfa-micro-back-reservation
+    build:
+      context: ./micro-back-all/micro-back-reservation
+      dockerfile: Dockerfile
     ports:
       - "8092:8082"
     depends_on:
@@ -124,14 +138,18 @@ services:
       - microservice-network
 
   micro-front-admin:
-    image: pfa-micro-front-admin
+    build:
+      context: ./micro-front-admin
+      dockerfile: Dockerfile
     ports:
       - "3010:3000"
     networks:
       - microservice-network
 
   micro-front-visiteur:
-    image: pfa-micro-front-visiteur
+    build:
+      context: ./micro-front-visiteur
+      dockerfile: Dockerfile
     ports:
       - "3011:3001"
     networks:
