@@ -20,7 +20,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: DockerCompose@0
+    - task: DockerCompose@1
       displayName: Login to Azure Container Registry
       inputs:
         command: login
