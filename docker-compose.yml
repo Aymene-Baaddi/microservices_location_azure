@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   mysql:
-    build: mysql:latest
+    image: mysql:latest
     ports:
       - "3307:3306"
     environment:
