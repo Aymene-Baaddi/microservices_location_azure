@@ -3,11 +3,12 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import './login.css';
 
-function Login({ setIsAuthenticated }) {
+function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +20,11 @@ function Login({ setIsAuthenticated }) {
         });
 
       if (response.data) {
+        const userId = response.data.id; 
         setLoggedInUser(response.data);
+        setIsLoggedIn(true); 
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userId", userId); 
         alert('Connexion réussie ! Utilisateur connecté :', response.data);
         navigate('/home');
       } else {
