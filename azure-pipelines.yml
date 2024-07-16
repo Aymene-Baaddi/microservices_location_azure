@@ -5,6 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  dockerRegistryServiceConnection: 'da85116b-3ab2-405c-82ec-16dc0b6fd72e'
   containerRegistry: 'mywebapp.azurecr.io'
   dockerComposeFile: 'docker-compose.yml'
 
@@ -19,7 +20,7 @@ steps:
     additionalImageTags: |
       $(Build.BuildId)
       latest
-    containerregistry: '$(containerRegistry)'
+    containerregistry: '$(dockerRegistryServiceConnection:)'
 
 - task: DockerCompose@0
   displayName: 'Push Docker Compose Images'
@@ -31,4 +32,4 @@ steps:
     additionalImageTags: |
       $(Build.BuildId)
       latest
-    containerregistry: '$(containerRegistry)'
+    containerregistry: '$(dockerRegistryServiceConnection:)'
