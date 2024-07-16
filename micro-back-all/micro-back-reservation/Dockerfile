@@ -1,17 +1,16 @@
-# Étape 1 : Construire l'application (à faire localement avant de construire l'image Docker)
-# mvn clean package -DskipTests
+# Dockerfile pour un microservice Spring Boot
 
-# Étape 2 : Utiliser une image OpenJDK pour exécuter l'application
-FROM eclipse-temurin:17-jdk-alpine
+# Étape 1 : Utiliser une image de base appropriée pour Java
+FROM eclipse-temurin:21-jdk-alpine
 
-# Définir le répertoire de travail dans l'image
-WORKDIR /app
+# Étape 2 : Ajouter un argument pour le fichier JAR
+ARG JAR_FILE=target/*.jar
 
-# Copier le fichier JAR généré dans l'image
-COPY target/*.jar app.jar
+# Étape 3 : Copier le fichier JAR dans l'image Docker
+COPY ${JAR_FILE} app.jar
 
-# Exposer le port sur lequel l'application Spring Boot fonctionne
+# Étape 4 : Exposer le port sur lequel l'application Spring Boot fonctionne
 EXPOSE 8082
 
-# Définir la commande pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Étape 5 : Démarrer l'application
+ENTRYPOINT ["java", "-jar", "/app.jar"]
