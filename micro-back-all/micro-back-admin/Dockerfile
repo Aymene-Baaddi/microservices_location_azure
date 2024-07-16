@@ -4,7 +4,7 @@
 FROM eclipse-temurin:21-jdk-alpine
 
 # Étape 2 : Ajouter un argument pour le fichier JAR
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=*.jar
 
 # Étape 3 : Copier le fichier JAR dans l'image Docker
 COPY ${JAR_FILE} app.jar
