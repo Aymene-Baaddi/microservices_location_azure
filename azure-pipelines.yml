@@ -9,10 +9,11 @@ variables:
   dockerComposeFile: 'docker-compose.yml'
 
 steps:
-- task: DockerCompose@0
+- task: DockerCompose@1
   displayName: 'Build Docker Compose Images'
   inputs:
     action: 'Build services'
+    azureSubscription: 'az-aymene'
     dockerComposeFile: '$(dockerComposeFile)'
     qualifyImageNames: true
     additionalImageTags: |
@@ -20,13 +21,14 @@ steps:
       latest
     containerregistry: '$(containerRegistry)'
 
-- task: DockerCompose@0
+- task: DockerCompose@1
   displayName: 'Push Docker Compose Images'
   inputs:
     action: 'Push services'
     dockerComposeFile: '$(dockerComposeFile)'
+    azureSubscription: 'az-aymene'
     qualifyImageNames: true
     additionalImageTags: |
       $(Build.BuildId)
       latest
-    containerregistry: '$(dockerRegistryServiceConnection)'
+    containerregistry: '$(containerRegistry)'
