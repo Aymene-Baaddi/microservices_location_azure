@@ -19,7 +19,7 @@ jobs:
       scriptLocation: 'inlineScript'
       inlineScript: |
         echo "Logging into ACR..."
-        az acr login --name $(CONTAINER_REGISTRY)
+        az acr login --name $(containerRegistry)
 
         echo "Building and pushing Docker images..."
         docker-compose -f docker-compose.yml build
