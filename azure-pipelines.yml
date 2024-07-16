@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  dockerRegistryServiceConnection: 'da85116b-3ab2-405c-82ec-16dc0b6fd72e'
+  dockerRegistryServiceConnection: 'mywebapp'
   containerRegistry: 'mywebapp.azurecr.io'
   dockerComposeFile: 'docker-compose.yml'
 
