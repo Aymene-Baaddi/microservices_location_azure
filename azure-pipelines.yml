@@ -1,31 +1,32 @@
 trigger:
-- main  # ou une autre branche de votre choix
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
   containerRegistry: 'mywebapp.azurecr.io'
-  IMAGE_TAG: '$(Build.BuildId)'
+  dockerComposeFile: 'docker-compose.yml'
 
-jobs:
-- job: BuildAndPush
-  displayName: 'Build and Push Docker Images'
-  steps:
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'az-aymene'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        echo "Logging into ACR..."
-        az acr login --name $(containerRegistry)
+steps:
+- task: DockerCompose@0
+  displayName: 'Build Docker Compose Images'
+  inputs:
+    action: 'Build services'
+    dockerComposeFile: '$(dockerComposeFile)'
+    qualifyImageNames: true
+    additionalImageTags: |
+      $(Build.BuildId)
+      latest
+    containerregistry: '$(containerRegistry)'
 
-        echo "Building and pushing Docker images..."
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: '$(Pipeline.Workspace)/docker-compose.yml'
-      artifactName: 'docker-compose'
+- task: DockerCompose@0
+  displayName: 'Push Docker Compose Images'
+  inputs:
+    action: 'Push services'
+    dockerComposeFile: '$(dockerComposeFile)'
+    qualifyImageNames: true
+    additionalImageTags: |
+      $(Build.BuildId)
+      latest
+    containerregistry: '$(dockerRegistryServiceConnection)'
