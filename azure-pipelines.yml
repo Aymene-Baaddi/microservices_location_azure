@@ -9,7 +9,7 @@ variables:
   dockerComposeFile: 'docker-compose.yml'
 
 steps:
-- task: DockerCompose@1
+- task: DockerCompose@0
   displayName: 'Build Docker Compose Images'
   inputs:
     action: 'Build services'
@@ -21,7 +21,7 @@ steps:
       latest
     containerregistry: '$(containerRegistry)'
 
-- task: DockerCompose@1
+- task: DockerCompose@0
   displayName: 'Push Docker Compose Images'
   inputs:
     action: 'Push services'
