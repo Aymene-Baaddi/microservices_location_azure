@@ -15,7 +15,7 @@ jobs:
   steps:
   - task: AzureCLI@2
     inputs:
-      azureSubscription: 'Temporary Subscription -  Hassoun (4c937cb0-557b-4a3d-b505-a43df1f5819b)'
+      containerRegistry: $(dockerRegistryServiceConnection)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
