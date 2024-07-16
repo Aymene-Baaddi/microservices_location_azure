@@ -20,6 +20,11 @@ steps:
       $(Build.BuildId)
       latest
     containerregistry: '$(dockerRegistryServiceConnection:)'
+- task: DockerCompose@0
+  displayName: 'Login to ACR'
+  inputs:
+    command: 'login'
+    containerRegistry: '$(dockerRegistryServiceConnection)'
 
 - task: DockerCompose@0
   displayName: 'Push Docker Compose Images'
