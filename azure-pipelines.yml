@@ -8,7 +8,7 @@ variables:
   dockerRegistryServiceConnection: 'mywebapp'
   containerRegistry: 'mywebapp.azurecr.io'
   dockerComposeFile: 'docker-compose.yml'
-  SONARQUBE_SERVICE_CONNECTION: 'bd-sonarcube'
+  SONARQUBE_SERVICE_CONNECTION: 'http://192.168.1.129:9000'
 
 jobs:
 - job: SonarQubeAnalysisBackend
