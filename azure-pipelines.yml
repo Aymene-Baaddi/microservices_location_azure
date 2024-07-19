@@ -8,31 +8,68 @@ variables:
   dockerRegistryServiceConnection: 'mywebapp'
   containerRegistry: 'mywebapp.azurecr.io'
   dockerComposeFile: 'docker-compose.yml'
+  SONARQUBE_SERVICE_CONNECTION: 'bd-sonarcube'
 
-steps:
-- task: DockerCompose@0
-  displayName: 'Build Docker Compose Images'
-  inputs:
-    action: 'Build services'
-    dockerComposeFile: '$(dockerComposeFile)'
-    qualifyImageNames: true
-    additionalImageTags: |
-      $(Build.BuildId)
-      latest
-    containerregistry: '$(dockerRegistryServiceConnection:)'
-- task: Docker@2
-  displayName: 'Login to ACR'
-  inputs:
-    command: 'login'
-    containerRegistry: '$(dockerRegistryServiceConnection)'
+jobs:
+- job: SonarQubeAnalysisBackend
+  displayName: 'SonarQube Analysis for Spring Boot Microservices'
+  steps:
+    - script: |
+        for service in micro-back-all/micro-back-voiture micro-back-all/micro-back-favori micro-back-all/micro-back-reservation micro-back-all/micro-back-user micro-back-all/micro-back-admin micro-back-all/micro-back-api-gateway micro-back-all/micro-back-discovery; do
+          echo "Running SonarQube analysis for $service"
+          mvn sonar:sonar -Dsonar.projectKey=AT2Car_AT2Car_AZDKW2lLoa8BehD2hqCt -Dsonar.projectName=AT2Car -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION) -f $service/pom.xml
+        done
+      displayName: 'Run SonarQube Analysis for Backend Microservices'
 
-- task: DockerCompose@0
-  displayName: 'Push Docker Compose Images'
-  inputs:
-    action: 'Push services'
-    dockerComposeFile: '$(dockerComposeFile)'
-    qualifyImageNames: true
-    additionalImageTags: |
-      $(Build.BuildId)
-      latest
-    containerregistry: '$(dockerRegistryServiceConnection:)'
+- job: SonarQubeAnalysisFrontend
+  displayName: 'SonarQube Analysis for React Microservices'
+  steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
+      displayName: 'Install Node.js'
+      
+    - script: |
+        for service in micro-front-admin micro-front-visiteur; do
+          echo "Running SonarQube analysis for $service"
+          cd $service
+          npm install
+          npm run build
+          sonar-scanner -Dsonar.projectKey=AT2Car_AT2Car_AZDKW2lLoa8BehD2hqCt -Dsonar.projectName=AT2Car -Dsonar.sources=src -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION)
+          cd ..
+        done
+      displayName: 'Run SonarQube Analysis for Frontend Microservices'
+
+- job: DockerBuildAndPush
+  displayName: 'Build and Push Docker Images'
+  dependsOn: 
+    - SonarQubeAnalysisBackend
+    - SonarQubeAnalysisFrontend
+  steps:
+    - task: DockerCompose@0
+      displayName: 'Build Docker Compose Images'
+      inputs:
+        action: 'Build services'
+        dockerComposeFile: '$(dockerComposeFile)'
+        qualifyImageNames: true
+        additionalImageTags: |
+          $(Build.BuildId)
+          latest
+        containerregistry: '$(dockerRegistryServiceConnection)'
+
+    - task: Docker@2
+      displayName: 'Login to ACR'
+      inputs:
+        command: 'login'
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+
+    - task: DockerCompose@0
+      displayName: 'Push Docker Compose Images'
+      inputs:
+        action: 'Push services'
+        dockerComposeFile: '$(dockerComposeFile)'
+        qualifyImageNames: true
+        additionalImageTags: |
+          $(Build.BuildId)
+          latest
+        containerregistry: '$(dockerRegistryServiceConnection)'
