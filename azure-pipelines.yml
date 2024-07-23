@@ -14,14 +14,15 @@ jobs:
 - job: SonarQubeAnalysisBackend
   displayName: 'SonarQube Analysis for Spring Boot Microservices'
   steps:
-    - task: SonarQubePrepare@5
+    - task: SonarQubePrepare@6
       inputs:
-        SonarQube: 'bd-sonarcube'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
-        extraProperties: |
-          sonar.projectKey=AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc
+         SonarQube: 'bd-sonarcube'
+         scannerMode: 'MSBuild'
+         projectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
+         projectName: 'AT2Car'
+    - task: SonarQubeAnalyze@6
+      inputs:
+       jdkversion: 'JAVA_HOME_21_X64'
     - task: JavaToolInstaller@0
       inputs:
         versionSpec: '21'
