@@ -14,18 +14,12 @@ jobs:
 - job: SonarQubeAnalysisBackend
   displayName: 'SonarQube Analysis for Spring Boot Microservices'
   steps:
-    - task: SonarQubePrepare@6
+    - task: JavaToolInstaller@0
       inputs:
-          SonarQube: 'bd-sonarcube'
-          scannerMode: 'MSBuild'
-          projectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
-          projectName: 'AT2Car'
-          jdkArchitectureOption: 'x64'
-          jdkSourceOption: 'PreInstalled'
-              
-    - task: SonarQubeAnalyze@6
-      inputs:
-        jdkversion: 'JAVA_HOME_21_X64'
+        versionSpec: '21'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
+      displayName: 'Install Java 21'           
     - script: |
         for service in micro-back-voiture micro-back-favori micro-back-reservation micro-back-user micro-back-admin micro-back-api-gateway micro-back-discovery; do
           echo "Running SonarQube analysis for $service"
