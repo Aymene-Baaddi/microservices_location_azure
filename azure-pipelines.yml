@@ -18,6 +18,7 @@ jobs:
       inputs:
         versionSpec: '21'
         jdkArchitectureOption: 'x64' 
+        jdkSourceOption: 'PreInstalled'
       displayName: 'Install Java 21'
     - script: |
         for service in micro-back-voiture micro-back-favori micro-back-reservation micro-back-user micro-back-admin micro-back-api-gateway micro-back-discovery; do
