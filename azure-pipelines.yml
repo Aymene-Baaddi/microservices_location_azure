@@ -14,10 +14,16 @@ jobs:
 - job: SonarQubeAnalysisBackend
   displayName: 'SonarQube Analysis for Spring Boot Microservices'
   steps:
+    - task: Maven@3
+      inputs:
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+      displayName: 'Install Maven'
+      
     - script: |
         for service in micro-back-all/micro-back-voiture micro-back-all/micro-back-favori micro-back-all/micro-back-reservation micro-back-all/micro-back-user micro-back-all/micro-back-admin micro-back-all/micro-back-api-gateway micro-back-all/micro-back-discovery; do
           echo "Running SonarQube analysis for $service"
-          mvn sonar:sonar -Dsonar.projectKey=AT2Car_AT2Car_AZDLVLU0MtnHEKMgnRun -Dsonar.projectName=AT2Car -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION) -f ./micro-back-all/micro-back-voiture/pom.xml
+          mvn sonar:sonar -Dsonar.projectKey=$(basename $service) -Dsonar.projectName=$(basename $service) -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION) -f ./$service/pom.xml
         done
       displayName: 'Run SonarQube Analysis for Backend Microservices'
 
