@@ -16,6 +16,7 @@ jobs:
   steps:
     - task: Maven@3
       inputs:
+        mavenPomFile: 'pom.xml'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
       displayName: 'Install Maven'
