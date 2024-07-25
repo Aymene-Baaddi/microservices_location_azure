@@ -15,6 +15,9 @@ jobs:
 - job: SonarQubeAnalysisBackend
   displayName: 'SonarQube Analysis for Spring Boot Microservices'
   steps:
+    - script: |
+       curl -I http://192.168.1.191:9000
+       displayName: 'Test connectivity to SonarQube'
     - task: SonarQubePrepare@5
       inputs:
         SonarQube: 'bd-sonarcube'
