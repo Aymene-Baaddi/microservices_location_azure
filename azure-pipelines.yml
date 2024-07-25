@@ -45,6 +45,18 @@ jobs:
 - job: SonarQubeAnalysisFrontend
   displayName: 'SonarQube Analysis for React Microservices'
   steps:
+    - script: |
+       curl -I http://192.168.1.191:9000
+      displayName: 'Test connectivity to SonarQube'
+    - task: SonarQubePrepare@6
+      inputs:
+        SonarQube: 'bd-sonarcube'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'AT2Car_AT2Car_AZDqncgv4eycP_HMpQFn'
+        extraProperties: |
+          sonar.projectKey=AT2Car_AT2Car_AZDqncgv4eycP_HMpQFn
+
     - task: NodeTool@0
       inputs:
         versionSpec: '14.x'
