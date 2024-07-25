@@ -19,11 +19,13 @@ jobs:
       inputs:
         SonarQube: 'bd-sonarcube'
         scannerMode: 'CLI'
-        cliVersion: '0'
+        cliVersion: '6.1.0.4477'
         configMode: 'manual'
         cliProjectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
         cliProjectName: 'AT2Car'
         cliSources: '.'
+        sonarHostUrl: 'http://192.168.1.191:9000'
+
     - task: NodeTaskRunnerInstaller@0
       inputs:
         nodeVersion: '20'
