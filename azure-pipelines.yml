@@ -19,7 +19,7 @@ jobs:
       inputs:
         SonarQube: 'bd-sonarcube'
         scannerMode: 'CLI'
-        cliVersion: '6.1.0.4477'
+        cliVersion: '0'
         configMode: 'manual'
         cliProjectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
         cliProjectName: 'AT2Car'
