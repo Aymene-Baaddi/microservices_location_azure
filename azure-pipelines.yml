@@ -14,19 +14,7 @@ jobs:
 - job: SonarQubeAnalysis
   displayName: 'SonarQube Analysis for All Microservices'
   steps:
-    - task: Maven@4
-      inputs:
-        mavenPomFile: 'pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    - task: NodeTaskRunnerInstaller@0
-      inputs:
-        nodeVersion: '20'
+
     - task: SonarQubePrepare@6
       inputs:
         SonarQube: 'bd-sonarcube'
@@ -36,6 +24,90 @@ jobs:
         cliProjectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
         cliProjectName: 'AT2Car'
         cliSources: '.'
+    - task: NodeTaskRunnerInstaller@0
+      inputs:
+        nodeVersion: '20'
+    - script: |
+        for dir in micro-front-*/; do
+          echo "Running SonarQube analysis for $dir"
+          cd $dir
+          npm install
+          npm run build
+          sonar-scanner -Dsonar.projectKey=$(basename $dir) -Dsonar.projectName=$(basename $dir) -Dsonar.sources=src -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION)
+          cd ..
+        done
+      displayName: 'Run SonarQube Analysis for Frontend Microservices'
+
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-voiture/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-favori/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-reservation/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-user/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-admin/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-api-gateway/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'micro-back-all/micro-back-discovery/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
     - task: SonarQubeAnalyze@6
       inputs:
         jdkversion: 'JAVA_HOME_17_X64'
