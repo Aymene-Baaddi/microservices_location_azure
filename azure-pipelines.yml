@@ -11,62 +11,42 @@ variables:
   SONARQUBE_SERVICE_CONNECTION: 'bd-sonarcube'
 
 jobs:
-
-- job: SonarQubeAnalysisBackend
-  displayName: 'SonarQube Analysis for Spring Boot Microservices'
+- job: SonarQubeAnalysis
+  displayName: 'SonarQube Analysis for All Microservices'
   steps:
-    - script: |
-       curl -I http://192.168.1.191:9000
-       displayName: 'Test connectivity to SonarQube'
-    - task: SonarQubePrepare@5
+    - task: Maven@4
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+    - task: NodeTaskRunnerInstaller@0
+      inputs:
+        nodeVersion: '20'
+    - task: SonarQubePrepare@6
       inputs:
         SonarQube: 'bd-sonarcube'
         scannerMode: 'CLI'
+        cliVersion: '6.1.0.4477'
         configMode: 'manual'
         cliProjectKey: 'AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc'
-        extraProperties: |
-          sonar.projectKey=AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc
-    - task: JavaToolInstaller@0
+        cliProjectName: 'AT2Car'
+        cliSources: '.'
+    - task: SonarQubeAnalyze@6
       inputs:
-        versionSpec: '21'
-        jdkArchitectureOption: 'x64'
-        jdkSourceOption: 'PreInstalled'
-      displayName: 'Install Java 21'           
-    - script: |
-        for service in micro-back-voiture micro-back-favori micro-back-reservation micro-back-user micro-back-admin micro-back-api-gateway micro-back-discovery; do
-          echo "Running SonarQube analysis for $service"
-          cd ./micro-back-all/$service
-          mvn clean verify sonar:sonar -Dsonar.projectKey=AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc -Dsonar.projectName=AT2Car -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION)
-          cd ../..
-        done
-      displayName: 'Run SonarQube Analysis for Backend Microservices'
-
-- job: SonarQubeAnalysisFrontend
-  displayName: 'SonarQube Analysis for React Microservices'
-  steps:
-    - task: NodeTool@0
+        jdkversion: 'JAVA_HOME_17_X64'
+    - task: SonarQubePublish@6
       inputs:
-        versionSpec: '14.x'
-      displayName: 'Install Node.js'
-    - script: |
-       curl -Lo /tmp/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-       unzip /tmp/sonar-scanner.zip -d /tmp
-       export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
-        for service in micro-front-admin micro-front-visiteur; do
-          echo "Running SonarQube analysis for $service"
-          cd $service
-          npm install
-          npm run build
-          sonar-scanner -Dsonar.projectKey=AT2Car_AT2Car_AZDfK74FKu-cI83U3IVc -Dsonar.projectName=AT2Car -Dsonar.sources=src -Dsonar.host.url=$(SONARQUBE_SERVICE_CONNECTION)
-          cd ..
-        done
-      displayName: 'Run SonarQube Analysis for Frontend Microservices'
+        pollingTimeoutSec: '300'
 
 - job: DockerBuildAndPush
   displayName: 'Build and Push Docker Images'
   dependsOn: 
-    - SonarQubeAnalysisBackend
-    - SonarQubeAnalysisFrontend
+    - SonarQubeAnalysis
   steps:
     - task: DockerCompose@0
       displayName: 'Build Docker Compose Images'
