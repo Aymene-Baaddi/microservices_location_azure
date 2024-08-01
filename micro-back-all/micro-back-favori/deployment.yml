@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-back-favori
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-back-favori
+  template:
+    metadata:
+      labels:
+        app: micro-back-favori
+    spec:
+      containers:
+        - name: micro-back-favori
+          image: mywebapp.azurecr.io/pfa-micro-back-favori:latest
+          ports:
+            - containerPort: 8091

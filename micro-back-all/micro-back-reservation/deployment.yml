@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-back-reservation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-back-reservation
+  template:
+    metadata:
+      labels:
+        app: micro-back-reservation
+    spec:
+      containers:
+        - name: micro-back-reservation
+          image: mywebapp.azurecr.io/pfa-micro-back-reservation:latest
+          ports:
+            - containerPort: 8092

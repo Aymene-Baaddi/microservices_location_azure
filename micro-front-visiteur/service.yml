@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-front-visiteur
+spec:
+  selector:
+    app: micro-front-visiteur
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3011
+  type: LoadBalancer

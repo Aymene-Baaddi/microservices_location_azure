@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-back-api-gateway
+spec:
+  selector:
+    app: micro-back-api-gateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8090
+  type: LoadBalancer

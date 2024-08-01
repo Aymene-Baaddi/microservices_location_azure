@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-back-api-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-back-api-gateway
+  template:
+    metadata:
+      labels:
+        app: micro-back-api-gateway
+    spec:
+      containers:
+        - name: micro-back-api-gateway
+          image: mywebapp.azurecr.io/pfa-micro-back-api-gateway:latest
+          ports:
+            - containerPort: 8090

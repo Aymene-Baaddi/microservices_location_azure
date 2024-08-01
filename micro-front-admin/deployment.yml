@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-front-admin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-front-admin
+  template:
+    metadata:
+      labels:
+        app: micro-front-admin
+    spec:
+      containers:
+        - name: micro-front-admin
+          image: mywebapp.azurecr.io/pfa-micro-front-admin:latest
+          ports:
+            - containerPort: 3010

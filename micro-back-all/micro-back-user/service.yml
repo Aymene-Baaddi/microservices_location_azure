@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-back-user
+spec:
+  selector:
+    app: micro-back-user
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8093
+  type: LoadBalancer

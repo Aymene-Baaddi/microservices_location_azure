@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-front-visiteur
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-front-visiteur
+  template:
+    metadata:
+      labels:
+        app: micro-front-visiteur
+    spec:
+      containers:
+        - name: micro-front-visiteur
+          image: mywebapp.azurecr.io/pfa-micro-front-visiteur:latest
+          ports:
+            - containerPort: 3011

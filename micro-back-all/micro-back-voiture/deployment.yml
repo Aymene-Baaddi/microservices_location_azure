@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-back-voiture
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micro-back-voiture
+  template:
+    metadata:
+      labels:
+        app: micro-back-voiture
+    spec:
+      containers:
+        - name: micro-back-voiture
+          image: mywebapp.azurecr.io/pfa-micro-back-voiture:latest
+          ports:
+            - containerPort: 8095
