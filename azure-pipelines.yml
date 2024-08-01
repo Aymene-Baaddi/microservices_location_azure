@@ -56,7 +56,7 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster>
+             az aks get-credentials --resource-group rg-aymene --name at2car
       - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/deployment.yml
         displayName: 'Deploy micro-back-api-gateway'
       - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/service.yml
