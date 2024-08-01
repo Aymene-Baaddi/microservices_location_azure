@@ -57,35 +57,35 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster>
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-api-gateway/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/deployment.yml
         displayName: 'Deploy micro-back-api-gateway'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-api-gateway/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/service.yml
         displayName: 'Expose micro-back-api-gateway'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-discovery/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-discovery/deployment.yml
         displayName: 'Deploy micro-back-discovery'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-discovery/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-discovery/service.yml
         displayName: 'Expose micro-back-discovery'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-favori/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-favori/deployment.yml
         displayName: 'Deploy micro-back-favori'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-favori/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-favori/service.yml
         displayName: 'Expose micro-back-favori'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-reservation/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-reservation/deployment.yml
         displayName: 'Deploy micro-back-reservation'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-reservation/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-reservation/service.yml
         displayName: 'Expose micro-back-reservation'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-user/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-user/deployment.yml
         displayName: 'Deploy micro-back-user'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-user/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-user/service.yml
         displayName: 'Expose micro-back-user'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-voiture/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-voiture/deployment.yml
         displayName: 'Deploy micro-back-voiture'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-back-all/micro-back-voiture/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-voiture/service.yml
         displayName: 'Expose micro-back-voiture'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-front-admin/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-front-admin/deployment.yml
         displayName: 'Deploy micro-front-admin'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-front-admin/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-front-admin/service.yml
         displayName: 'Expose micro-front-admin'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-front-visiteur/deployment.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-front-visiteur/deployment.yml
         displayName: 'Deploy micro-front-visiteur'
-      - script: kubectl apply -f $(Build.SourcesDirectory)/pfa/micro-front-visiteur/service.yml
+      - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-front-visiteur/service.yml
         displayName: 'Expose micro-front-visiteur'
