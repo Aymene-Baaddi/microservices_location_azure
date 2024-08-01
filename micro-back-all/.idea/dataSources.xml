@@ -65,6 +65,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+<<<<<<< HEAD
     <data-source source="LOCAL" name="voiture" uuid="ff18c851-91db-40d1-925e-200aa6385f35">
       <driver-ref>azure.ms</driver-ref>
       <synchronize>true</synchronize>
@@ -118,6 +119,15 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://srv-aymene.database.windows.net:1433;database=admin</jdbc-url>
+=======
+    <data-source source="LOCAL" name="reservation@localhost" uuid="44368441-cf4f-47b5-9150-37341667c8f3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/micro-back-reservation/src/main/resources/application.properties</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/reservation?createDatabaseIfNotExist=true</jdbc-url>
+>>>>>>> b5292d63b9be41cb96e27fadb041897330b57655
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
