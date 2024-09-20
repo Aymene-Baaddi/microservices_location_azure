@@ -9,11 +9,6 @@ variables:
   containerRegistry: 'mywebapp.azurecr.io'
   dockerComposeFile: 'docker-compose.yml'
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> a42e1c88132749eced549ab5b8f9a302befc1470
 stages:
 - stage: Build
   jobs:
@@ -61,11 +56,7 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-<<<<<<< HEAD
             az aks get-credentials --resource-group rg-aymene --name at2car
-=======
-             az aks get-credentials --resource-group rg-aymene --name at2car
->>>>>>> a42e1c88132749eced549ab5b8f9a302befc1470
       - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/deployment.yml
         displayName: 'Deploy micro-back-api-gateway'
       - script: kubectl apply -f $(System.DefaultWorkingDirectory)/micro-back-all/micro-back-api-gateway/service.yml
